@@ -343,6 +343,14 @@ class Homestead
             end
         end
 
+        # Set PHP version
+        if settings.has_key?("php") && settings["php"]
+            config.vm.provision "shell" do |s|
+                s.path = scriptDir + "/set-php-version.sh"
+                s.args = [settings["php"]]
+            end
+        end
+
         # Configure All Of The Configured Databases
         if settings.has_key?("databases")
             settings["databases"].each do |db|
